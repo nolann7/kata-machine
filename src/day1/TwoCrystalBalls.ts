@@ -1,17 +1,15 @@
 export default function two_crystal_balls(breaks: boolean[]): number {
-    let start = 0;
-    let end = breaks.length;
-    let result = Infinity;
+  let jump = Math.floor(Math.sqrt(breaks.length))
 
-    while (start < end) {
-        let middle = start + Math.floor((end - start) / 2);
-        if (breaks[middle] === false) {
-            start = middle + 1;
-        }
-        if (breaks[middle] === true) {
-            result = Math.min(result, middle);
-            end = middle;
-        }
-    }
-    return result === Infinity ? -1 : result;
+  let i = jump;
+  for (; i < breaks.length; i+=jump){
+    if (breaks[i]) break;
+  }
+
+  i -= jump;
+
+  for (let j = 0; j < jump && i < breaks.length; ++j, ++i){
+    if (breaks[i]) return i
+  }
+  return -1;
 }
