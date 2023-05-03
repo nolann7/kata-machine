@@ -1,3 +1,4 @@
+
 export default class SinglyLinkedList<T> {
     public length: number;
 
