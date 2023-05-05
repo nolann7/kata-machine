@@ -1,11 +1,10 @@
-type Node<T> = { value: T; next?: Node<T> };
+type Node<T> = { value: T; prev?: Node<T> };
 export default class Stack<T> {
     public length: number;
     private head?: Node<T>;
-    private tail?: Node<T>;
 
     constructor() {
-        this.head = this.tail = undefined;
+        this.head = undefined;
         this.length = 0;
     }
 
@@ -14,33 +13,28 @@ export default class Stack<T> {
         this.length++;
 
         if (!this.head) {
-            this.head = this.tail = node;
+            this.head = node;
             return;
         }
 
         const currentHead = this.head;
         this.head = node;
-        this.head.next = currentHead;
+        this.head.prev = currentHead;
     }
     pop(): T | undefined {
-      if (!this.head) {
-        return undefined
-      }
+        if (!this.head) {
+            return undefined;
+        }
 
-      this.length--;
-      
-      const currentHead = this.head;
-      this.head = this.head.next
-      
-      // free
-      currentHead.next = undefined;
-      if (this.length === 0) {
-        this.tail = undefined;
-      }
+        this.length--;
 
+        const currentHead = this.head;
+        this.head = this.head.prev;
 
-      return currentHead.value;
+        // free
+        currentHead.prev = undefined;
 
+        return currentHead.value;
     }
     peek(): T | undefined {
         return this.head?.value;
