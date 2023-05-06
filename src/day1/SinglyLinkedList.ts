@@ -35,10 +35,10 @@ export default class SinglyLinkedList<T> {
 
         while (current) {
             if (index + 1 === idx) {
-              let prevNext = current.next;
-              current.next = node;
-              node.next = prevNext;
-              return;
+                let prevNext = current.next;
+                current.next = node;
+                node.next = prevNext;
+                return;
             }
             current = current.next;
             index++;
@@ -96,16 +96,15 @@ export default class SinglyLinkedList<T> {
         return undefined;
     }
     get(idx: number): T | undefined {
-        if (!this.head) return undefined;
+        if (!this.head || idx < 0 || idx >= this.length) return undefined;
 
         let current: Node<T> | undefined = this.head;
         let index = 0;
-        while (index < this.length) {
-            if (index === idx) return current?.value;
+        while (index < idx && current) {
+            current = current.next;
             index++;
-            current = current?.next;
         }
-        return undefined;
+        return current?.value;
     }
     removeAt(idx: number): T | undefined {
         if (!this.head) return undefined;
@@ -151,5 +150,5 @@ list.append(7);
 list.append(9);
 
 // console.log(list.removeAt(2));
-console.log(list.remove(9));
-console.log(list);
+console.log(list.get(-1));
+// console.log(list);
