@@ -25,8 +25,14 @@ export default class SinglyLinkedList<T> {
     }
     insertAt(item: T, idx: number): void {
         if (idx < 0 || idx > this.length) return;
-        if (idx === 0) this.prepend(item);
-        if (idx === this.length) this.append(item);
+        if (idx === 0) {
+            this.prepend(item);
+            return;
+        }
+        if (idx === this.length) {
+            this.append(item);
+            return;
+        }
 
         const node = { value: item } as Node<T>;
         this.length++;
