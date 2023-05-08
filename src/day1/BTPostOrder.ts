@@ -1,19 +1,18 @@
 export default function post_order_search(head: BinaryNode<number>): number[] {
-    const result: number[] = [];
+    const walk = (
+        currentNode: BinaryNode<number> | null,
+        path: number[],
+    ): number[] => {
+        if (!currentNode) return path;
 
-    const recurse = (currentNode: BinaryNode<number>, result: number[]) => {
-        if (currentNode.left) {
-            recurse(currentNode.left, result);
-        }
+        walk(currentNode.left, path);
 
-        if (currentNode.right) {
-            recurse(currentNode.right, result);
-        }
-        
-        result.push(currentNode.value);
+        walk(currentNode.right, path);
+
+        path.push(currentNode.value);
+
+        return path;
     };
 
-    recurse(head, result);
-
-    return result;
+    return walk(head, []);
 }
