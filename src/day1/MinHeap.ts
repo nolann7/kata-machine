@@ -33,19 +33,16 @@ export default class MinHeap {
     }
 
     private heapifyDown(idx: number): void {
-        if (idx >= this.length) return;
-
-        const currentValue = this.data[idx];
         const leftChildIdx = this.leftChild(idx);
         const rightChildIdx = this.rightChild(idx);
 
+        if (idx >= this.length || leftChildIdx >= this.length) return;
+
+        const currentValue = this.data[idx];
         const leftChildValue = this.data[leftChildIdx];
         const rightChildValue = this.data[rightChildIdx];
 
-        if (
-            leftChildValue <= rightChildValue &&
-            leftChildValue < currentValue
-        ) {
+        if (leftChildValue < rightChildValue && leftChildValue < currentValue) {
             this.swap(idx, leftChildIdx);
             this.heapifyDown(leftChildIdx);
         } else if (
@@ -73,7 +70,8 @@ export default class MinHeap {
             return out;
         }
 
-        this.data[0] = this.data.pop()!;
+        // this.data[0] = this.data.pop()!;
+        this.data[0] = this.data[this.length];
         this.heapifyDown(0);
         return out;
     }
