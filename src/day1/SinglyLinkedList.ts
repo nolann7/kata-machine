@@ -8,6 +8,27 @@ export default class SinglyLinkedList<T> {
         this.head = this.tail = undefined;
         this.length = 0;
     }
+    reverse(): Node<T> | undefined {
+        if (!this.head) return undefined;
+
+        let current: Node<T> = this.head;
+        this.head = this.tail;
+        this.tail = current;
+
+        let prev = undefined;
+        let next;
+
+        while (current) {
+            next = current.next;
+            
+            current.next = prev;
+            prev = current;
+            
+            current = next!;
+        }
+
+        return this.head;
+    }
 
     prepend(item: T): void {
         const node = { value: item } as Node<T>;
@@ -151,10 +172,29 @@ export default class SinglyLinkedList<T> {
 }
 
 const list = new SinglyLinkedList();
-list.append(5);
-list.append(7);
-list.append(9);
+list.append(1);
+list.append(2);
+list.append(3);
+
+list.reverse();
 
 // console.log(list.removeAt(2));
-console.log(list.get(-1));
-// console.log(list);
+// console.log(list.get(-1));
+console.log(list);
+
+// if (!this.head) return undefined;
+// // [ 'Hi', 'there', 'dear', 'friend' ]
+// let node: Node<T> = this.head; // Hi
+// this.head = this.tail;
+// this.tail = node;
+
+// let next: Node<T> | undefined;
+// let prev = undefined;
+// for (let i = 0; i < this.length; i++) {
+//     next = node.next; // there
+//     node.next = prev; // null
+//     prev = node; // Hi
+//     node = next!; // there --> on next loop will be 'dear' for the next
+// }
+
+// return this.head;

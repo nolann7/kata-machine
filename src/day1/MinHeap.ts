@@ -70,9 +70,10 @@ export default class MinHeap {
             return out;
         }
 
-        // this.data[0] = this.data.pop()!;
-        this.data[0] = this.data[this.length];
+        this.data[0] = this.data.pop()!;
+        // this.data[0] = this.data[this.length];
         this.heapifyDown(0);
+        console.log(this.data.length, this.length)
         return out;
     }
 }
