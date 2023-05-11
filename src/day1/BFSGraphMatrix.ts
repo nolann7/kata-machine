@@ -12,10 +12,10 @@ export default function bfs(
         let current = q.shift() as number;
         if (current === needle) break;
 
-        const adjacency = graph[current];
+        const adjs = graph[current];
 
-        for (let i = 0; i < adjacency.length; i++) {
-            if (adjacency[i] === 0) continue;
+        for (let i = 0; i < adjs.length; i++) {
+            if (adjs[i] === 0) continue;
             if (seen[i]) continue;
 
             q.push(i);
@@ -25,6 +25,8 @@ export default function bfs(
     }
 
     if (prev[needle] === -1) return null;
+
+    // build path backwards
 
     const out: number[] = [];
     let curr = needle;
